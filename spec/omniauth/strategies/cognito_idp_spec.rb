@@ -31,7 +31,7 @@ RSpec.describe OmniAuth::Strategies::CognitoIdP do
       end
     end
 
-    let(:oauth_client) { double('OAuth2::Client', auth_code: auth_code) }
+    let(:oauth_client) { double('OAuth2::Client', auth_code: auth_code, site: "http://localhost/auth/cognito-idp/callback") }
     let(:auth_code) { double('OAuth2::AuthCode', get_token: access_token_object) }
     let(:access_token_object) { double('OAuth2::AccessToken') }
     let(:callback_url) { 'http://localhost/auth/cognito-idp/callback?code=1234' }
@@ -57,7 +57,7 @@ RSpec.describe OmniAuth::Strategies::CognitoIdP do
     let(:env) { {} }
     let(:request) { double('Rack::Request', params: {'state' => strategy.session['omniauth.state']}) }
     let(:session) { { 'omniauth.state' => 'some_state' } }
-    let(:oauth_client) { double('OAuth2::Client', auth_code: auth_code) }
+    let(:oauth_client) { double('OAuth2::Client', auth_code: auth_code, site: "http://localhost/auth/cognito-idp/callback") }
     let(:auth_code) { double('OAuth2::AuthCode') }
     let(:access_token_object) { OAuth2::AccessToken.from_hash(oauth_client, token_hash) }
 
